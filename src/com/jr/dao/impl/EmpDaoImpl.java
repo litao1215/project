@@ -101,11 +101,54 @@ public class EmpDaoImpl implements IEmapDao {
 
     @Override
     public int updateemp(Emp emp) {
-        return 0;
+        int num = 0;
+        try {
+            con = DBHelper.getconn();
+            String sql = "update emp set job=?,sal=?,comm=?,deptno=? where empno=?";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, emp.getJob());
+            ps.setDouble(2, emp.getSal());
+            ps.setDouble(3, emp.getComm());
+            ps.setInt(4, emp.getDeptno());
+            ps.setInt(5, emp.getEmpno());
+            num = ps.executeUpdate();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBHelper.closeAll(rs, ps, con);
+        }
+        return num;
     }
 
     @Override
     public Emp selectemp(Emp emp) {
-        return null;
+        Emp e1 = new Emp();
+        try {
+            con = DBHelper.getconn();
+            String sql = "select * from emp where empno=?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, emp.getEmpno());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                e1.setEmpno(rs.getInt(1));
+                e1.setJob(rs.getString(3));
+                e1.setHiredate(rs.getDate(5));
+                e1.setSal(rs.getDouble(6));
+                e1.setComm(rs.getDouble(7));
+                e1.setDeptno(rs.getInt(8));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return e1;
     }
-}
+    }
+

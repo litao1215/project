@@ -14,9 +14,9 @@
 <body>
 <form method="get" action="emp">
     请输入你的员工编号：<input type="text" name="empno"/><br/>
-    请输入你的员工姓名：<input type="text" name="ename" /><br/>
-                        <input type="hidden" value="2" name="i" /><br/>
-                        <input type="submit" value="登录" /><br/>
+    请输入你的员工姓名：<input type="text" name="ename"/><br/>
+    <input type="hidden" value="2" name="i"/><br/>
+    <input type="submit" value="登录"/><br/>
 </form>
 </body>
 </html>

@@ -35,7 +35,7 @@
             <td style="text-align: center">${emp.comm}</td>
             <td style="text-align: center">${emp.deptno}</td>
             <td><a href='emp?i=3&empno=${emp.empno}'>删除</a></td>
-            <td><a href="">修改</a></td>
+            <td><a href='emp?i=4&empno=${emp.empno}&job=${emp.job}&hiredate=${emp.hiredate}&sal=${emp.sal}&comm=${emp.comm}&deptno=${emp.deptno}'>修改</a></td>
         </tr>
     </c:forEach>
 </table>

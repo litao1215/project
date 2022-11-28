@@ -25,11 +25,11 @@ public class EmpBizImpl implements IEmpBiz {
 
     @Override
     public boolean modifyemp(Emp emp) {
-        return false;
+        return ed.updateemp(emp)==1?true:false;
     }
 
     @Override
     public Emp queryemp(Emp emp) {
-        return null;
+        return ed.selectemp(emp);
     }
 }
