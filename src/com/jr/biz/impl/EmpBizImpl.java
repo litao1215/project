@@ -15,7 +15,7 @@ public class EmpBizImpl implements IEmpBiz {
 
     @Override
     public List<Emp> queryAll() {
-        return null;
+        return ed.selectAll();
     }
 
     @Override

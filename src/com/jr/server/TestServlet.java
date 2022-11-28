@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 @WebServlet("/emp")
 public class TestServlet extends HttpServlet {
@@ -19,9 +21,12 @@ public class TestServlet extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("text/html;charset=UTF-8");
+
         String str = req.getParameter("i");
         if(str.equals("1")){
             insert(req, resp);
+        }else if (str.equals("2")){
+            selectAll(req,resp);
         }
     }
 
@@ -48,14 +53,18 @@ public class TestServlet extends HttpServlet {
         emp.setDeptno(Integer.parseInt(req.getParameter("deptno")));
         boolean boo = new EmpBizImpl().register(emp);
         if(boo){
-            selectAll(req,resp);
+            resp.sendRedirect("login.jsp");
         }
         else {
             resp.sendRedirect("index.jsp");
         }
     }
-public void selectAll (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-
+    public void selectAll (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+        EmpBizImpl ebi=new EmpBizImpl();
+        List<Emp> list=ebi.queryAll();
+        HttpSession session=req.getSession();
+        session.setAttribute("emplist",list);
+        resp.sendRedirect("select.jsp");
     }
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmpDaoImpl implements IEmapDao {
@@ -48,7 +49,34 @@ public class EmpDaoImpl implements IEmapDao {
 
     @Override
     public List<Emp> selectAll() {
-        return null;
+        List<Emp> list=new ArrayList<>();
+        try {
+            con=DBHelper.getconn();
+            String sql="select*from emp";
+            ps=con.prepareStatement(sql);
+            rs=ps.executeQuery();
+            while (rs.next()){
+                Emp emp=new Emp();
+                emp.setEmpno(rs.getInt(1));
+                emp.setEname(rs.getString(2));
+                emp.setJob(rs.getString(3));
+                emp.setMgr(rs.getInt(4));
+                emp.setHiredate(rs.getDate(5));
+                emp.setSal(rs.getDouble(6));
+                emp.setComm(rs.getDouble(7));
+                emp.setDeptno(rs.getInt(8));
+                list.add(emp);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBHelper.closeAll(rs,ps,con);
+        }
+        return list;
     }
 
     @Override
