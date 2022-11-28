@@ -78,10 +78,25 @@ public class EmpDaoImpl implements IEmapDao {
         }
         return list;
     }
-
     @Override
     public int deleteemp(Emp emp) {
-        return 0;
+        int num = 0;
+        try {
+            con = DBHelper.getconn();
+            String sql = "delete from emp where empno=?";
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, emp.getEmpno());
+            num = ps.executeUpdate();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBHelper.closeAll(rs, ps, con);
+        }
+        return num;
     }
 
     @Override

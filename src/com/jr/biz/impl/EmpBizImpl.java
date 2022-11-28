@@ -20,7 +20,7 @@ public class EmpBizImpl implements IEmpBiz {
 
     @Override
     public boolean removeemp(Emp emp) {
-        return false;
+        return ed.deleteemp(emp)==0?false:true;
     }
 
     @Override

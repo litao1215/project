@@ -27,6 +27,8 @@ public class TestServlet extends HttpServlet {
             insert(req, resp);
         }else if (str.equals("2")){
             selectAll(req,resp);
+        }else if (str.equals("3")){
+            deleteone(req,resp);
         }
     }
 
@@ -66,6 +68,23 @@ public class TestServlet extends HttpServlet {
         session.setAttribute("emplist",list);
         resp.sendRedirect("select.jsp");
     }
+    public void deleteone(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int empno= Integer.parseInt(req.getParameter("empno"));
+        EmpBizImpl ebi=new EmpBizImpl();
+        Emp emp=new Emp();
+        emp.setEmpno(empno);
+        boolean b = ebi.removeemp(emp);
+        if (b){
+            selectAll(req,resp);
+        }else {
+            resp.getWriter().println("删除失败！！！");
+            resp.getWriter().println("<a href='select.jsp'>返回展示</a>");
+        }
+    }
+
+
+
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.service(req, resp);
