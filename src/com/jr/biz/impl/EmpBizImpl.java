@@ -1,14 +1,16 @@
 package com.jr.biz.impl;
 
 import com.jr.biz.IEmpBiz;
+import com.jr.dao.impl.EmpDaoImpl;
 import com.jr.entry.Emp;
 
 import java.util.List;
 
 public class EmpBizImpl implements IEmpBiz {
+    EmpDaoImpl ed = new EmpDaoImpl();
     @Override
     public boolean register(Emp emp) {
-        return false;
+        return ed.insertemp(emp)==0?false:true;
     }
 
     @Override
